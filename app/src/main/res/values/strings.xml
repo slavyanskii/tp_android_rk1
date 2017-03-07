@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">rk_go_go_go</string>
+    <string name="date">Date</string>
+    <string name="title">Title</string>
+    <string name="content">News Content</string>
+    <string name="change_category">Change news category</string>
+    <string name="background"> Update in background</string>
+    <string name="no_background">Dont update in background</string>
+    <string name="refresh">Update news</string>
+    <string name="cat1">Category1</string>
+    <string name="cat2">Category2</string>
+    <string name="cat3">Category3</string>
+</resources>
