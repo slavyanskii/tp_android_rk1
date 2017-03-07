@@ -95,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
                 Scheduler.getInstance().unschedule(MainActivity.this, intent);
             }
         });
+        onUpdate();
     }
 
     @Override
