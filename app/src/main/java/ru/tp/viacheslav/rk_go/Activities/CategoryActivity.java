@@ -4,6 +4,7 @@ package ru.tp.viacheslav.rk_go.Activities;
  * Created by viacheslav on 07.03.17.
  */
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.Button;
 
 import ru.mail.weather.lib.Storage;
 import ru.tp.viacheslav.rk_go.R;
+import ru.tp.viacheslav.rk_go.Services.NewsService;
 
 public class CategoryActivity extends AppCompatActivity {
 
@@ -31,6 +33,9 @@ public class CategoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Storage.getInstance(CategoryActivity.this).saveCurrentTopic(ru.mail.weather.lib.Topics.AUTO);
+                Intent intent = new Intent(CategoryActivity.this, NewsService.class);
+                intent.setAction(NewsService.NEWS_LOAD_ACTION);
+                startService(intent);
                 finish();
             }
         });
@@ -39,6 +44,9 @@ public class CategoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Storage.getInstance(CategoryActivity.this).saveCurrentTopic(ru.mail.weather.lib.Topics.HEALTH);
+                Intent intent = new Intent(CategoryActivity.this, NewsService.class);
+                intent.setAction(NewsService.NEWS_LOAD_ACTION);
+                startService(intent);
                 finish();
             }
         });
@@ -47,6 +55,9 @@ public class CategoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Storage.getInstance(CategoryActivity.this).saveCurrentTopic(ru.mail.weather.lib.Topics.IT);
+                Intent intent = new Intent(CategoryActivity.this, NewsService.class);
+                intent.setAction(NewsService.NEWS_LOAD_ACTION);
+                startService(intent);
                 finish();
             }
         });

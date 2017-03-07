@@ -8,7 +8,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.StrictMode;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,16 +15,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import ru.mail.weather.lib.News;
-import ru.mail.weather.lib.NewsLoader;
 import ru.mail.weather.lib.Scheduler;
 import ru.mail.weather.lib.Storage;
-import ru.mail.weather.lib.Topics;
 import ru.tp.viacheslav.rk_go.R;
 import ru.tp.viacheslav.rk_go.Services.NewsService;
 
@@ -43,22 +39,16 @@ public class MainActivity extends AppCompatActivity {
     private Button Refresh;
     private Button Change;
 
-
-    static {
-        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
-                .detectActivityLeaks()
-                .penaltyLog()
-                .penaltyDeath()
-                .build()
-        );
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "Create");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Intent intent = new Intent(MainActivity.this, NewsService.class);
+        intent.setAction(NewsService.NEWS_LOAD_ACTION);
+        startService(intent);
 
         Title = (TextView)findViewById(R.id.title);
         Date = (TextView)findViewById(R.id.date);
@@ -71,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, NewsService.class);
                 intent.setAction(NewsService.NEWS_LOAD_ACTION);
                 startService(intent);
-                onUpdate();
+//                onUpdate();
             }
         });
 
@@ -79,7 +69,8 @@ public class MainActivity extends AppCompatActivity {
         Change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startCategoryActivity();
+                Intent intent = new Intent(MainActivity.this, CategoryActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -127,10 +118,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         Log.d(TAG, "onResume");
         super.onResume();
-        Intent intent = new Intent(MainActivity.this, NewsService.class);
-        intent.setAction(NewsService.NEWS_LOAD_ACTION);
-        startService(intent);
-        onUpdate();
     }
 
     @Override
@@ -179,11 +166,5 @@ public class MainActivity extends AppCompatActivity {
     protected void onRestart() {
         Log.d(TAG, "onRestart");
         super.onRestart();
-    }
-
-    private void startCategoryActivity() {
-        Log.d(TAG, "startCatActivity");
-        Intent intent = new Intent(this, CategoryActivity.class);
-        startActivity(intent);
     }
 }
